@@ -13,6 +13,38 @@
   </head>
 
   <body>
+    <header>
+      <div class="text-center"><h1>TaskMaster</h1></div>
+    </header>
+    <main class="container">
+      <div class="row mb-3">
+        <form class="form-inline" onsubmit="app.listController.addList(event)">
+          <div class="form-group">
+            <label for="">list</label>
+            <input
+              type="text"
+              name="title"
+              id=""
+              class="form-control"
+              placeholder="List Title ..."
+              aria-describedby="helpId"
+            />
+            <label for="listColor">Color</label>
+            <input type="color" name="listColor" value="#ff0000" />
+            <button type="submit" class="btn btn-outline-primary">
+              Add List
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="row">
+        <div class="col-10">
+          <div id="lists" class="row"></div>
+        </div>
+      </div>
+    </main>
+    <footer></footer>
+
     <script src="app/main.js" type="module"></script>
   </body>
 </html>
