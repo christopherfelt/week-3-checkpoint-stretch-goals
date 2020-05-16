@@ -8,42 +8,72 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/css/mdb-plugins-gathered.min.css"
+    />
+
     <link rel="stylesheet" href="assets/style.css" />
     <title>TaskMaster</title>
   </head>
 
   <body>
-    <header>
-      <div class="text-center"><h1>TaskMaster</h1></div>
+    <header class="py-5">
+      <div class="text-center"><h1 class="title">TaskMaster</h1></div>
     </header>
     <main class="container">
-      <div class="row mb-3">
-        <form class="form-inline" onsubmit="app.listController.addList(event)">
-          <div class="form-group">
-            <label for="">list</label>
-            <input
-              type="text"
-              name="title"
-              id=""
-              class="form-control"
-              placeholder="List Title ..."
-              aria-describedby="helpId"
-            />
-            <label for="listColor">Color</label>
-            <input type="color" name="listColor" value="#ff0000" />
-            <button type="submit" class="btn btn-outline-primary">
-              Add List
-            </button>
-          </div>
-        </form>
+      <div class="row mb-3 d-flex justify-content-center">
+        <div
+          class="col-5-lg col-8-md col-12-sm bg-light shadow p-2 rounded d-flex justify-content-center"
+        >
+          <form
+            class="form-inline"
+            onsubmit="app.listController.addList(event)"
+          >
+            <div class="form-group">
+              <label class="font-weight-bold mr-1" for="title"
+                >List Name:
+              </label>
+              <input
+                type="text"
+                name="title"
+                id=""
+                class="form-control mr-1"
+                placeholder="Todo, Groceries etc ..."
+                aria-describedby="helpId"
+              />
+              <label class="mr-1" for="listColor"
+                ><span class="font-weight-bold mr-1">Color: </span>
+                <input
+                  id="chooseColor"
+                  class="mr-1"
+                  type="color"
+                  name="listColor"
+                  value="#ff0000"
+                />
+              </label>
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-      <div class="row">
+      <div class="row d-flex justify-content-center">
         <div class="col-10">
-          <div id="lists" class="row"></div>
+          <div id="lists" class="row border pt-3 px-3"></div>
         </div>
       </div>
     </main>
     <footer></footer>
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.1.1/js/all.js"
+      integrity="sha384-BtvRZcyfv4r0x/phJt9Y9HhnN5ur1Z+kZbKVgzVBAlQZX4jvAuImlIz+bG7TS00a"
+      crossorigin="anonymous"
+    ></script>
 
     <script src="app/main.js" type="module"></script>
   </body>

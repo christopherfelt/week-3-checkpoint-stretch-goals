@@ -6,40 +6,46 @@ export default class List {
     this.id = data.id || generateId();
     this.title = data.title;
     this.color = data.color;
-    this.tasks = data.tasks || [];
-    class item {
-      constructor() {
-        console.log("nested class");
+    // this.tasks = data.tasks || [];
+    class task {
+      constructor(taskObj) {
+        this.title = taskObj.title;
+        this.complete = taskObj.complete || false;
       }
     }
-    this.testItem = new item();
+    // this.testTasks = data.tasks.map((t) => new task(t));
+    this.tasks = data.tasks ? data.tasks.map((t) => new task(t)) : [];
   }
 
   get Template() {
     return /*html*/ `
-            <div class="col-3">
-              <div class="card ">
+            <div class="col-lg-4 col-md-6 col-sm-3 my-3">
+              <div class="card rounded">
                 <div class="card-body p-0">
-                  <h4 id="${
-                    this.id + "-title"
-                  }" class="card-title d-block" style="background-color: ${
-      this.color
-    }"  >${this.title}</h4>
+                <div class="d-block" style="background-color: ${this.color}">
+                  <span id="${this.id + "-title"}" 
+                  class="card-title d-inline text-center ml-2 mt-2 gochi-hand-font list-title">
+                  ${this.title}</span>
+                  <button type="button" class="btn d-inline float-right remove-list"
+                  onclick="app.listController.removeList('${this.id}')">
+                  X</button>
+                </div>
                   <p class="card-text">
-                    <ul>
                         ${this.TasksTemplate}
-                    </ul>
+                    
                   </p>
-                  <button type="button" class="btn btn-outline-secondary" onclick="app.listController.removeList('${
+                  <button type="button" class="btn btn-outline-danger ml-2 p-1
+                  ${this.tasks.some((t) => t.complete == true) ? "" : "d-none"}
+                  " onclick="app.listController.removeCompleted('${
                     this.id
-                  }')">Delete List</button>
-                  <form class="form-" onsubmit="app.listController.addTask(event,'${
+                  }')" ><small>Remove Completed</small></button>
+                  <form class="form-inline mx-1 my-1" onsubmit="app.listController.addTask(event,'${
                     this.id
                   }')" >
-                    <div class="form-group">
+                    <div class="">
                       <label for="task"></label>
-                      <input type="text" name="task" id="" class="form-control" placeholder="new task" aria-describedby="new task">
-                      <button type="submit" class="btn btn-outline-info">Add Task</button>
+                      <input type="text" name="task" class="form-control d-inline" placeholder="new task" aria-describedby="new task">
+                      <button type="submit" class="btn btn-outline-info ml-3"><i class="fas fa-plus    "></i></button>
                     </div>
                   </form>
                 </div>
@@ -52,11 +58,29 @@ export default class List {
     let template = "";
     this.tasks.forEach((element, i) => {
       template += /*html*/ `
-    <li ><span id="${
-      this.id + "-task-" + i
-    }">${element}</span> <button class='btn btn-danger' onclick='app.listController.removeTask("${
-        this.id
-      }", ${i})'>X</button></li>
+    <div class="pl-5 my-1 d-flex justify-content-between" >
+      <div class="text-left d-inline task-div align-self-center">
+        <label class="checkbox-container"
+          id="${this.id + "-task-" + i}">
+          <input type="checkbox" class="" onclick="app.listController.toggleComplete('${
+            this.id
+          }', ${i})" ${element.complete ? "checked" : ""}>
+          <span class="checkmark" ${
+            element.complete
+              ? "style='background-color:" + this.color + ";'"
+              : ""
+          }></span>
+          <span class="item-title">${element.title}</span>
+        </label> 
+      </div>
+
+      <div class="d-inline pr-3">
+        <button class='btn ml-3 remove-task text-right' onclick='app.listController.removeTask("${
+          this.id
+        }", ${i})'><i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+    </div>
       `;
     });
     return template;

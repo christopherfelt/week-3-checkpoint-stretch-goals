@@ -23,7 +23,6 @@ export default class ListController {
       title: formData.title.value,
       color: formData.listColor.value,
     };
-    console.log(rawListData);
     formData.reset();
     ListService.addList(rawListData);
     _drawLists();
@@ -50,6 +49,16 @@ export default class ListController {
       ListService.removeTask(id, index);
       _drawLists();
     }
+  }
+
+  toggleComplete(id, index) {
+    ListService.toggleCheck(id, index);
+    _drawLists();
+  }
+
+  removeCompleted(id) {
+    ListService.removeCompleted(id);
+    _drawLists();
   }
 
   //TODO: Your app will need the ability to create, and delete both lists and listItems
