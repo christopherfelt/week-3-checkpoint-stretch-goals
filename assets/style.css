@@ -128,11 +128,26 @@ main {
   transform: rotate(45deg);
 }
 
-/* * {
-  outline: 1px solid red;
+.card-width {
+  width: 250px;
 }
 
-.task-div {
+.item-div {
+  box-shadow: none;
+  border: none;
+  transition: ease;
+  transition-duration: 0.5s;
+}
+
+.item-div:hover {
+  box-shadow: 0 0 2px 5px lightblue;
+}
+
+/* * {
+  outline: 1px solid red;
+} */
+
+/* .task-div {
   border: 2px solid black;
 } */
 
