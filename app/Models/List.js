@@ -17,10 +17,13 @@ export default class List {
     this.tasks = data.tasks ? data.tasks.map((t) => new task(t)) : [];
   }
 
+  // old div tag: <div class="col-sm-3 col-md-6 col-lg-4 my-3">
+  // Removed this tag: <div class="card-columns"></div>
+
   get Template() {
     return /*html*/ `
-            <div class="col-lg-4 col-md-6 col-sm-3 my-3">
-              <div class="card rounded">
+            
+              <div class="card rounded card-width">
                 <div class="card-body p-0">
                 <div class="d-block" style="background-color: ${this.color}">
                   <span id="${this.id + "-title"}" 
@@ -45,12 +48,12 @@ export default class List {
                     <div class="">
                       <label for="task"></label>
                       <input type="text" name="task" class="form-control d-inline" placeholder="new task" aria-describedby="new task">
-                      <button type="submit" class="btn btn-outline-info ml-3"><i class="fas fa-plus    "></i></button>
+                      <button type="submit" class="btn btn-outline-info ml-3" d-inline><i class="fas fa-plus    "></i></button>
                     </div>
                   </form>
                 </div>
               </div>
-            </div>
+            
     `;
   }
 
@@ -58,8 +61,8 @@ export default class List {
     let template = "";
     this.tasks.forEach((element, i) => {
       template += /*html*/ `
-    <div class="pl-5 my-1 d-flex justify-content-between" >
-      <div class="text-left d-inline task-div align-self-center">
+    <div class="pl-5 my-1 d-flex justify-content-between item-div" >
+      <div class="text-left d-inline task-div align-self-center ">
         <label class="checkbox-container"
           id="${this.id + "-task-" + i}">
           <input type="checkbox" class="" onclick="app.listController.toggleComplete('${
