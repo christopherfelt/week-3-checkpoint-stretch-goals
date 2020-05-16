@@ -30,17 +30,17 @@ export default class ListController {
 
   removeList(id) {
     let listName = document.getElementById(id + "-title").innerText;
-    if (
-      swal({
-        title: "Wait!",
-        text: "Are you sure you want to delete '" + listName + "'?",
-        icon: "warning",
-        button: "yep i'm good",
-      })
-    ) {
-      ListService.removeList(id);
-      _drawLists();
-    }
+    swal({
+      title: "Wait!",
+      text: "Are you sure you want to delete '" + listName + "'?",
+      icon: "warning",
+      button: "yep i'm good",
+    }).then((value) => {
+      if (value) {
+        ListService.removeList(id);
+        _drawLists();
+      }
+    });
   }
 
   addTask(event, id) {
@@ -50,6 +50,7 @@ export default class ListController {
     ListService.addTask(id, task);
     _drawLists();
   }
+
   removeTask(id, index) {
     let taskName = document.getElementById(id + "-task-" + index).innerText;
     swal({
@@ -59,23 +60,10 @@ export default class ListController {
       button: "yep i'm good",
     }).then((value) => {
       if (value) {
-        console.log("in if");
         ListService.removeTask(id, index);
         _drawLists();
       }
     });
-    // console.log(test);
-    // if (
-    //   swal({
-    //     title: "Wait!",
-    //     text: "Are you sure you want to delete '" + taskName + "'?",
-    //     icon: "warning",
-    //     button: "yep i'm good",
-    //   })
-    // ) {
-    //   ListService.removeTask(id, index);
-    //   _drawLists();
-    // }
   }
 
   toggleComplete(id, index) {
