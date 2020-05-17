@@ -2,6 +2,22 @@ import ListService from "../Services/ListService.js";
 import store from "../store.js";
 
 //TODO Don't forget to render to the screen after every data change.
+function _initialDraw() {
+  let lists = store.State.lists;
+  let template = "";
+  lists.forEach((l) => (template += l.Template));
+  document.getElementById("lists").innerHTML = template;
+  for (let i = 0; i < lists.length; i++) {
+    document.getElementById(lists[i].id).classList.add("move-box");
+  }
+  gsap.from(".move-box", {
+    duration: 1,
+    opacity: 0,
+    x: 1000,
+    stagger: 0.2,
+  });
+}
+
 function _drawLists() {
   let lists = store.State.lists;
   let template = "";
@@ -9,11 +25,21 @@ function _drawLists() {
   document.getElementById("lists").innerHTML = template;
 }
 
+function _drawNewList() {
+  let lists = store.State.lists;
+  let template = "";
+  lists.forEach((l, i) => (template += l.Template));
+  document.getElementById("lists").innerHTML = template;
+  let lastElement = lists[lists.length - 1].id;
+  document.getElementById(lastElement).classList.add("box");
+}
+
 //Public
 export default class ListController {
   constructor() {
     //NOTE: After the store loads, we can automatically call to draw the lists.
-    _drawLists();
+    // _drawLists();
+    _initialDraw();
   }
 
   addList(event) {
@@ -25,7 +51,8 @@ export default class ListController {
     };
     formData.reset();
     ListService.addList(rawListData);
-    _drawLists();
+    // _drawLists();
+    _drawNewList();
   }
 
   removeList(id) {

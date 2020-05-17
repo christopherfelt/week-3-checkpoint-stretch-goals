@@ -23,7 +23,7 @@ export default class List {
   get Template() {
     return /*html*/ `
             
-              <div class="card rounded card-width">
+              <div id ="${this.id}" class="card rounded card-width">
                 <div class="card-body p-0">
                 <div class="d-block" style="background-color: ${this.color}">
                   <span id="${this.id + "-title"}" 
